@@ -1,0 +1,25 @@
+
+services:
+  - type: web
+    name: itg-factory-api
+    env: node
+    plan: free
+    region: singapore
+    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: OPENROUTER_MODEL
+        value: mistralai/mistral-7b-instruct:free
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: RENDER_API_KEY
+        sync: false
+      - key: PAYSTACK_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false

@@ -1,0 +1,118 @@
+{
+  "form_name": "ITG Factory - Build My AI System",
+  "description": "We build any AI system in 7 days. GitHub repo + Live URL + Prompt library + Portal",
+  "fields": [
+    {
+      "type": "short_text",
+      "label": "What's your name?",
+      "key": "name",
+      "required": true
+    },
+    {
+      "type": "email",
+      "label": "Work email",
+      "key": "email",
+      "required": true
+    },
+    {
+      "type": "short_text",
+      "label": "Company / Brand",
+      "key": "company",
+      "required": false
+    },
+    {
+      "type": "dropdown",
+      "label": "What do you want us to build?",
+      "key": "service",
+      "required": true,
+      "options": [
+        "AI System Build - Custom agent with your data",
+        "Custom SaaS App - Full app, database, auth",
+        "WhatsApp Bot - Auto-replies, leads, Paystack",
+        "Automation Setup - Notion, Gmail, Airtable",
+        "Prompt Engineering Pack - 50+ prompts"
+      ]
+    },
+    {
+      "type": "long_text",
+      "label": "What should the app do? (for Custom SaaS)",
+      "key": "discoveryData.appPurpose",
+      "logic": "service contains Custom"
+    },
+    {
+      "type": "short_text",
+      "label": "Who are the users?",
+      "key": "discoveryData.users",
+      "logic": "service contains Custom"
+    },
+    {
+      "type": "long_text",
+      "label": "What data does it need?",
+      "key": "discoveryData.data",
+      "logic": "service contains Custom"
+    },
+    {
+      "type": "short_text",
+      "label": "Business type? (for WhatsApp Bot)",
+      "key": "discoveryData.businessType",
+      "logic": "service contains WhatsApp"
+    },
+    {
+      "type": "dropdown",
+      "label": "Bot tone?",
+      "key": "discoveryData.tone",
+      "options": [
+        "Friendly",
+        "Professional",
+        "Salesy"
+      ],
+      "logic": "service contains WhatsApp"
+    },
+    {
+      "type": "dropdown",
+      "label": "Budget range",
+      "key": "discoveryData.budget",
+      "options": [
+        "R15k - Starter",
+        "R35k - Growth (most popular)",
+        "R60k - Factory + Retainer"
+      ],
+      "required": true
+    },
+    {
+      "type": "dropdown",
+      "label": "How fast?",
+      "key": "discoveryData.timeline",
+      "options": [
+        "ASAP - 7 days",
+        "2 weeks",
+        "1 month"
+      ]
+    }
+  ],
+  "webhook": {
+    "url": "https://YOUR_APP.onrender.com/api/intake",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "payload_template": {
+      "name": "{{name}}",
+      "email": "{{email}}",
+      "company": "{{company}}",
+      "service": "{{service}}",
+      "source": "tally",
+      "blueprintId": "saas-supabase",
+      "discoveryData": {
+        "appPurpose": "{{appPurpose}}",
+        "users": "{{users}}",
+        "data": "{{data}}",
+        "businessType": "{{businessType}}",
+        "tone": "{{tone}}",
+        "budget": "{{budget}}",
+        "timeline": "{{timeline}}"
+      }
+    }
+  },
+  "instructions": "In Tally: Create form manually with fields above, then Settings -> Integrations -> Webhooks -> Add webhook with URL https://YOUR_APP.onrender.com/api/intake"
+}
