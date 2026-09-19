@@ -1,0 +1,33 @@
+Auto-replies for WhatsApp Cloud API:
+
+Trigger: BUILD, START, HELLO
+Reply:
+Thanks for typing BUILD 🚀
+
+You're getting your private app factory portal.
+
+I created your client profile. Next:
+1. Fill this 60s form to spec your app: https://tally.so/r/YOUR_TALLY_ID
+2. I'll scaffold your GitHub repo + live URL instantly
+3. Pay with Paystack in your portal
+
+Your portal: https://your-app.onrender.com/portal?id={{client.id}}
+
+We ship in 7 days. - ITG Factory
+
+Trigger: YES (after follow-up)
+Reply:
+Scaffolding your demo now... Check your portal in 30s: https://your-app.onrender.com/builder
+
+Trigger: PRICE, COST, HOW MUCH
+Reply:
+3 packages:
+Starter R15k: Prompt Pack + Automation
+Growth R35k: WhatsApp Bot + CRM + Portal (most popular)
+Factory R60k: Custom SaaS + Agent + 3mo retainer
+
+Which one fits? Reply STARTER, GROWTH or FACTORY and I'll send proposal.
+
+Trigger: Other
+Reply:
+Got it: "{{message}}" - Added to your project spec. Want me to scaffold a demo? Reply YES

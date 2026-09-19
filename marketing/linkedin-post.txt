@@ -1,0 +1,27 @@
+I built a factory that builds apps.
+
+Not an agency. A factory.
+
+In 7 days you get:
+→ Private GitHub repo (yours)
+→ Live URL on Render
+→ Prompt library + training
+→ Client portal to track progress
+→ Pay with Paystack
+
+We build:
+- WhatsApp bots that close leads
+- SaaS apps with Supabase + auth
+- LangChain agents with your data
+- Automations (Notion/Gmail/Airtable)
+
+No 3-week proposal dance. Fill a 60s Tally form → get GitHub + live URL in 30 mins → portal to track.
+
+Starter R15k | Growth R35k | Factory R60k + retainer
+
+I just shipped the factory itself live:
+👉 Demo: [YOUR_RENDER_URL]
+
+Type BUILD in comments or WhatsApp and I'll send your portal.
+
+#buildinpublic #ai #saas #southafrica #automation
