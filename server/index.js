@@ -67,25 +67,15 @@ app.get('/api/clients/:id', (req,res)=>{
 });
 
 // 2. AGENT DECISION
+const { runAgentDecision } = require('./langchain-agent');
 app.post('/api/agent/decide', async (req,res)=>{
   const { clientId } = req.body;
   const client = db.clients.find(c=>c.id===clientId);
   if(!client) return res.status(404).json({error:'client not found'});
   const blueprint = db.blueprints.find(b=> b.id===client.blueprintId) || db.blueprints.find(b=> client.service.toLowerCase().includes(b.id.split('-')[0])) || db.blueprints[2];
-  const logs = [
-    `[LangChain] Agent loaded on Render`,
-    `[OpenRouter] Model: ${process.env.OPENROUTER_MODEL || 'mistralai/mistral-7b-instruct:free'}`,
-    `[Notion] Searching blueprint registry for "${client.service}"`,
-    `[Match] ${blueprint.name} | Confidence 94%`,
-    `[Discovery] Parsed ${Object.keys(client.discoveryData||{}).length} extra fields`,
-    `[Price] Base $${blueprint.priceBase} + complexity`,
-    `[Next] Ready for proposal + scaffold`
-  ];
-  // Real OpenRouter call if key present
-  if(process.env.OPENROUTER_API_KEY){
-    logs.push(`[OpenRouter] Live call would happen here - key present`);
-  }
-  res.json({ client, blueprint, logs });
+
+  const result = await runAgentDecision({ client, blueprint, discoveryData: client.discoveryData });
+  res.json({ client: result.client, blueprint: result.blueprint, logs: result.logs });
 });
 
 // 3. PROPOSAL
@@ -142,6 +132,13 @@ app.post('/api/proposals/generate', (req,res)=>{
   res.json(prop);
 });
 app.get('/api/proposals', (req,res)=>res.json(db.proposals));
+app.get('/api/proposals/:id/pdf', (req,res)=>{
+  const prop = db.proposals.find(p=>p.id===req.params.id);
+  if(!prop) return res.status(404).json({error:'proposal not found'});
+  res.setHeader('Content-Type', 'text/markdown');
+  res.setHeader('Content-Disposition', `attachment; filename="Proposal_${prop.clientName.replace(/\s+/g,'_')}.md"`);
+  res.send(prop.markdown);
+});
 
 // 4. BUILDER STUDIO - SCAFFOLD
 app.post('/api/builder/scaffold', async (req,res)=>{
